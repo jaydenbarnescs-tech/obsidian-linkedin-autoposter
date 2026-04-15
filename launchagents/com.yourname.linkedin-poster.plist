@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent: runs linkedin-poster.js once per day at 13:00 JST.
+
+  SETUP:
+    1. Replace /Users/YOUR_USERNAME with your actual home directory path.
+    2. Copy to ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.yourname.linkedin-poster.plist
+
+  The script itself handles the JST timezone offset and adds a random
+  0-30 min or 90-120 min delay before posting, so it never looks like a bot.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.yourname.linkedin-poster</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/node</string>
+    <string>/Users/YOUR_USERNAME/claude-agent/linkedin-poster.js</string>
+  </array>
+
+  <!-- Fires every day at 13:00 local time (adjust Hour for your timezone) -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>13</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/YOUR_USERNAME/claude-agent/logs/linkedin-poster.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/YOUR_USERNAME/claude-agent/logs/linkedin-poster.log</string>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/YOUR_USERNAME/claude-agent</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <key>HOME</key>
+    <string>/Users/YOUR_USERNAME</string>
+    <key>OBSIDIAN_VAULT</key>
+    <string>/Users/YOUR_USERNAME/Library/Mobile Documents/iCloud~md~obsidian/Documents/YOUR_VAULT</string>
+  </dict>
+</dict>
+</plist>
