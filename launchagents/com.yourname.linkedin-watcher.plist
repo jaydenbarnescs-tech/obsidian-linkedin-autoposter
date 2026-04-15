@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent: runs linkedin-watcher-v2.js on login and keeps it alive.
+
+  SETUP:
+    1. Replace /Users/YOUR_USERNAME with your actual home directory path.
+    2. Copy to ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.yourname.linkedin-watcher.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.yourname.linkedin-watcher</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/node</string>
+    <string>/Users/YOUR_USERNAME/claude-agent/linkedin-watcher-v2.js</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <!-- Restart throttle — prevents a crash loop from hammering the system -->
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+
+  <key>StandardOutPath</key>
+  <string>/Users/YOUR_USERNAME/claude-agent/logs/linkedin.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/YOUR_USERNAME/claude-agent/logs/linkedin.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>/Users/YOUR_USERNAME</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <!-- Add your API keys here -->
+    <key>ELEVENLABS_API_KEY</key>
+    <string>sk_YOUR_ELEVENLABS_KEY</string>
+    <key>OBSIDIAN_VAULT</key>
+    <string>/Users/YOUR_USERNAME/Library/Mobile Documents/iCloud~md~obsidian/Documents/YOUR_VAULT</string>
+    <!-- If claude is not at ~/bin/claude, set this -->
+    <!-- <key>CLAUDE_BIN</key> -->
+    <!-- <string>/usr/local/bin/claude</string> -->
+  </dict>
+</dict>
+</plist>
