@@ -1,0 +1,19 @@
+{
+  "name": "obsidian-linkedin-autoposter",
+  "version": "2.0.0",
+  "description": "Voice note → LinkedIn post pipeline. Drop an audio/md file in your Obsidian vault, Claude polishes it, it queues and auto-posts at 1pm JST.",
+  "main": "linkedin-watcher-v2.js",
+  "scripts": {
+    "auth": "node linkedin-auth.js",
+    "refresh": "node linkedin-refresh.js",
+    "test": "bash test-linkedin.sh",
+    "watcher": "node linkedin-watcher-v2.js",
+    "poster": "node linkedin-poster.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
