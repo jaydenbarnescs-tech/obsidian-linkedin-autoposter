@@ -1,0 +1,4 @@
+node_modules/
+*.log
+.linkedin-credentials.json
+.env
